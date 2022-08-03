@@ -1,6 +1,7 @@
 package PageObjects;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ProfilePage {
@@ -13,5 +14,9 @@ public class ProfilePage {
         this.driver = driver;
     }
 
+//    @FindBy(xpath = "")
+
 
 }
+
+//p[text() = 'Иван']

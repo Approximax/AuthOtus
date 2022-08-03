@@ -13,19 +13,24 @@ public class AuthPage {
         this.driver = driver;
     }
 
+    @FindBy(xpath = "//button [@data-modal-id = 'new-log-reg']")
+    private WebElement loginEneterButton;
+
     @FindBy(xpath = "//button[@data-modal-id='new-log-reg']")
     private WebElement loginButton;
 
-//    поменять селектор
-    @FindBy(css = "input[class ^=new-input]:first")
+    @FindBy(xpath = "//input[@name = 'email' and @type = 'text' and not (@class = 'hide')]")
     private WebElement loginField;
 
     @FindBy(xpath = "//input[@type = 'password']")
     private WebElement passField;
 
-//    поменять селектор
-    @FindBy(xpath = "//button[text() = 'Войти']")
+    @FindBy(xpath = "//div [contains(@class,'new-input-line_relative')]/child::button")
     private WebElement enterButton;
+
+    public void loginEnter() {
+        loginEneterButton.click();
+    }
 
     public void inputLogin(String login) {
         loginField.sendKeys(login);
@@ -38,6 +43,5 @@ public class AuthPage {
     public void clickEnterButton() {
         enterButton.click();
     }
-
 
 }
