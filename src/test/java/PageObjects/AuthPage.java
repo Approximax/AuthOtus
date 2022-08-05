@@ -7,6 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class AuthPage {
+
+//    private String login = System.getProperty("login");
+//    private String password = System.getProperty("password");
     public WebDriver driver;
     public AuthPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -14,10 +17,7 @@ public class AuthPage {
     }
 
     @FindBy(xpath = "//button [@data-modal-id = 'new-log-reg']")
-    private WebElement loginEneterButton;
-
-    @FindBy(xpath = "//button[@data-modal-id='new-log-reg']")
-    private WebElement loginButton;
+    private WebElement loginEnterButton;
 
     @FindBy(xpath = "//input[@name = 'email' and @type = 'text' and not (@class = 'hide')]")
     private WebElement loginField;
@@ -29,7 +29,7 @@ public class AuthPage {
     private WebElement enterButton;
 
     public void loginEnter() {
-        loginEneterButton.click();
+        loginEnterButton.click();
     }
 
     public void inputLogin(String login) {
@@ -41,7 +41,7 @@ public class AuthPage {
     }
 
     public void clickEnterButton() {
-        enterButton.click();
+        enterButton.submit();
     }
 
 }
