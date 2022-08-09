@@ -23,17 +23,8 @@ public class ProfilePage {
     @FindBy(xpath = "//b [contains(@class, 'dropdown-text_name')]")
     private WebElement profileLink;
 
-//    @FindBy(xpath = "//input [@data-title = 'Фамилия']")
-//    private WebElement userSurname;
-
     @FindBy(xpath = "//button [text() = 'Добавить']")
     private WebElement addBtn;
-
-    @FindBy(xpath = "//input [@name = 'contact-0-value']")
-    private WebElement contactField1;
-
-    @FindBy(xpath = "//input [@name = 'contact-1-value']")
-    private WebElement contactField2;
 
     @FindBy(xpath = "//button [@title = 'Сохранить и продолжить']")
     private WebElement saveBtn;
@@ -53,10 +44,4 @@ public class ProfilePage {
     public void saveData () {
         saveBtn.click();
     }
-
-//    public void enter2Contacts () {
-//        addBtn.click();
-//        contactField1.sendKeys(tex);
-//    }
-
 }
