@@ -5,12 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AuthPage {
-
-//    private String login = System.getProperty("login");
-//    private String password = System.getProperty("password");
     public WebDriver driver;
+
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
     public AuthPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -29,19 +32,19 @@ public class AuthPage {
     private WebElement enterButton;
 
     public void loginEnter() {
-        loginEnterButton.click();
-    }
-
-    public void inputLogin(String login) {
-        loginField.sendKeys(login);
-    }
-
-    public void inputPass(String password) {
-        passField.sendKeys(password);
+        wait.until(ExpectedConditions.elementToBeClickable(loginEnterButton)).click();
     }
 
     public void clickEnterButton() {
         enterButton.submit();
+    }
+
+    public AuthPage userAuth (String login, String password) {
+        loginEnter();
+        loginField.sendKeys(login);
+        passField.sendKeys(password);
+        clickEnterButton();
+        return new AuthPage(driver);
     }
 
 }

@@ -5,6 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class ProfilePage {
 
@@ -12,6 +16,8 @@ public class ProfilePage {
 //    Нажать сохранить
     WebDriver driver;
     Actions actions;
+
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
     public ProfilePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -31,6 +37,7 @@ public class ProfilePage {
 
 
     public void enterLK () {
+        wait.until(ExpectedConditions.elementToBeClickable(profileMenu));
         actions.moveToElement(profileMenu);
         profileLink.click();
     }
@@ -43,5 +50,9 @@ public class ProfilePage {
 
     public void saveData () {
         saveBtn.click();
+    }
+
+    public String getElementText (WebElement element) {
+        return  element.getText();
     }
 }
