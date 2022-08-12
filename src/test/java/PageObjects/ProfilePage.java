@@ -33,6 +33,12 @@ public class ProfilePage {
     @FindBy(xpath = "//button [@title = 'Сохранить и продолжить']")
     private WebElement saveBtn;
 
+    @FindBy(xpath = "//input [@name = 'contact-0-value']")
+    private WebElement contactField1;
+
+    @FindBy(xpath = "//input [@name = 'contact-1-value']")
+    private WebElement contactField2;
+
 
     public void enterLK () {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
@@ -43,9 +49,10 @@ public class ProfilePage {
         profileLink.click();
     }
 
-    public ProfilePage enterContacts (WebElement element, String text) {
+    public ProfilePage enterContacts2contacts (String cont1, String cont2) {
         addBtn.click();
-        element.sendKeys(text);
+        contactField1.sendKeys(cont1);
+        contactField2.sendKeys(cont2);
         return new ProfilePage(driver);
     }
 
@@ -53,7 +60,9 @@ public class ProfilePage {
         saveBtn.click();
     }
 
-    public String getElementText (WebElement element) {
-        return  element.getText();
-    }
+//    public String get2ElementsText (String elemText1, String elemText2) {
+//        elemText1 = contactField1.getText();
+//        elemText2 = contactField2.getText();
+//        return elemText1;
+//    }
 }

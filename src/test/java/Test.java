@@ -6,6 +6,7 @@ import org.apache.logging.log4j.core.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,7 +18,6 @@ public class Test {
     protected WebDriver driver;
 
     private static org.apache.logging.log4j.Logger logger = LogManager.getLogger(Logger.class);
-
 
     @Before
     public void SetUp() {
@@ -34,11 +34,6 @@ public class Test {
     }
 
 //    Пришлось вынести сюда, иначе не вычитывалось корректно и было слишком много ненужного кода
-    @FindBy(xpath = "//input [@name = 'contact-0-value']")
-    private WebElement contactField1;
-
-    @FindBy(xpath = "//input [@name = 'contact-1-value']")
-    private WebElement contactField2;
 
 
     @org.junit.Test
@@ -55,7 +50,7 @@ public class Test {
 
         ProfilePage profilePage = new ProfilePage(driver);
         profilePage.enterLK();
-        profilePage.enterContacts(contactField1,text1).enterContacts(contactField2, text2).saveData();
+        profilePage.enterContacts2contacts(text1, text2).saveData();
         logger.info("Контакты заполнены");
 
         driver.manage().deleteAllCookies();
@@ -65,8 +60,10 @@ public class Test {
         authPage.userAuth("soremec508@5k2u.com", "Qwerty123-");
         logger.info("Авторизация пройдена");
 
-        String actual1 = profilePage.getElementText(contactField1);
-        String actual2 = profilePage.getElementText(contactField2);
+        profilePage.enterLK();
+        String actual1 = driver.findElement(By.xpath("//input [@name = 'contact-0-value']")).getText();
+        String actual2 = driver.findElement(By.xpath("//input [@name = 'contact-1-value']")).getText();
+        logger.info("Данные заполненных ранее контактов получены");
 
         Assert.assertEquals(text1, actual1);
         Assert.assertEquals(text2, actual2);
