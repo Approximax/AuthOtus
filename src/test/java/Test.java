@@ -10,9 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class Test {
     private String login = System.getProperty("login");
@@ -20,6 +17,7 @@ public class Test {
     protected WebDriver driver;
 
     private static org.apache.logging.log4j.Logger logger = LogManager.getLogger(Logger.class);
+
 
     @Before
     public void SetUp() {
@@ -45,8 +43,6 @@ public class Test {
 
     @org.junit.Test
     public void ContactsSaveTest () {
-
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
 
         String text1 = "123";
         String text2 = "456";

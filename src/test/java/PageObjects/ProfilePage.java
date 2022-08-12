@@ -15,15 +15,13 @@ public class ProfilePage {
 //    В разделе "О себе" заполнить все поля "Личные данные" и добавить не менее двух контактов
 //    Нажать сохранить
     WebDriver driver;
-    Actions actions;
 
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
     public ProfilePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    @FindBy(xpath = "//p [contains(@class, 'text__username')]")
+    @FindBy(xpath = "//p [contains(@class, 'text__username')]/following-sibling::div[@class = 'header2-menu__caret']")
     private WebElement profileMenu;
 
     @FindBy(xpath = "//b [contains(@class, 'dropdown-text_name')]")
@@ -37,8 +35,11 @@ public class ProfilePage {
 
 
     public void enterLK () {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
         wait.until(ExpectedConditions.elementToBeClickable(profileMenu));
-        actions.moveToElement(profileMenu);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(profileMenu).pause(Duration.ofSeconds(5));
+        actions.perform();
         profileLink.click();
     }
 
