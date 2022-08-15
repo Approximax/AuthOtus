@@ -7,10 +7,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.FindBy;
 
 public class Test {
     private String login = System.getProperty("login");
@@ -62,10 +61,17 @@ public class Test {
 
         profilePage.enterLK();
         String actual1 = driver.findElement(By.xpath("//input [@name = 'contact-0-value']")).getText();
-        String actual2 = driver.findElement(By.xpath("//input [@name = 'contact-1-value']")).getText();
-        logger.info("Данные заполненных ранее контактов получены");
+        logger.info("Данные первого конаткта получены");
+
+        try {
+            String actual2 = driver.findElement(By.xpath("//input [@name = 'contact-1-value']")).getText();
+            logger.info("Данные второго контакта получены");
+            Assert.assertEquals(text2, actual2);
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
 
         Assert.assertEquals(text1, actual1);
-        Assert.assertEquals(text2, actual2);
+
     }
 }
