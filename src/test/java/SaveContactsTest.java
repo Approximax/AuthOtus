@@ -1,6 +1,5 @@
-import PageObjects.AuthPage;
-import PageObjects.ProfilePage;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import page_objects.AuthPage;
+import page_objects.ProfilePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.junit.After;
@@ -8,20 +7,18 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import page_objects.WebDriverFactory;
 
-public class Test {
+public class SaveContactsTest {
     private String login = System.getProperty("login");
     private String password = System.getProperty("password");
-    protected WebDriver driver;
+
 
     private static org.apache.logging.log4j.Logger logger = LogManager.getLogger(Logger.class);
 
     @Before
     public void SetUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        WebDriverFactory.create("chrome");
         logger.info("Драйвер поднят");
     }
 
@@ -41,7 +38,7 @@ public class Test {
         String text1 = "123";
         String text2 = "456";
 
-        driver.get("https://otus.ru");
+        driver.get(System.getProperty("base.url"));
 
         AuthPage authPage = new AuthPage(driver);
         authPage.userAuth("soremec508@5k2u.com", "Qwerty123-");
@@ -53,10 +50,10 @@ public class Test {
         logger.info("Контакты заполнены");
 
         driver.manage().deleteAllCookies();
-        driver.get("https://otus.ru");
+        driver.get(url);
         logger.info("Открыт чистый браузер");
 
-        authPage.userAuth("soremec508@5k2u.com", "Qwerty123-");
+        authPage.userAuth(System.getProperty("login"), System.getProperty("password"));
         logger.info("Авторизация пройдена");
 
         profilePage.enterLK();

@@ -1,25 +1,16 @@
-package PageObjects;
+package page_objects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
-public class ProfilePage {
+public class ProfilePage extends BasePage {
 
 //    В разделе "О себе" заполнить все поля "Личные данные" и добавить не менее двух контактов
 //    Нажать сохранить
-    WebDriver driver;
-
-    public ProfilePage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
 
     @FindBy(xpath = "//p [contains(@class, 'text__username')]/following-sibling::div[@class = 'header2-menu__caret']")
     private WebElement profileMenu;
@@ -39,9 +30,12 @@ public class ProfilePage {
     @FindBy(xpath = "//input [@name = 'contact-1-value']")
     private WebElement contactField2;
 
+    public ProfilePage(WebDriver driver) {
+        super(driver);
+    }
+
 
     public void enterLK () {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
         wait.until(ExpectedConditions.elementToBeClickable(profileMenu));
         Actions actions = new Actions(driver);
         actions.moveToElement(profileMenu).pause(Duration.ofSeconds(5));

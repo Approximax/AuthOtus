@@ -1,24 +1,13 @@
-package PageObjects;
+package page_objects;
 
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-public class AuthPage {
-    public WebDriver driver;
-
-
-    public AuthPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
+public class AuthPage extends BasePage {
 
     @FindBy(xpath = "//button [@data-modal-id = 'new-log-reg']")
     private WebElement loginEnterButton;
@@ -32,8 +21,11 @@ public class AuthPage {
     @FindBy(xpath = "//div [contains(@class,'new-input-line_relative')]/child::button")
     private WebElement enterButton;
 
+    public AuthPage(WebDriver driver) {
+        super(driver);
+    }
+
     public void loginEnter() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
         wait.until(ExpectedConditions.elementToBeClickable(loginEnterButton)).click();
     }
 
@@ -43,7 +35,6 @@ public class AuthPage {
 
     public AuthPage userAuth (String login, String password) {
         loginEnter();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name = 'email' and @type = 'text' and not (@class = 'hide')]")));
         driver.findElement(By.xpath("//input[@name = 'email' and @type = 'text' and not (@class = 'hide')]")).sendKeys(login);
         passField.sendKeys(password);
