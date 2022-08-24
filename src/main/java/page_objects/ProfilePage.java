@@ -50,6 +50,10 @@ public class ProfilePage extends BasePage {
         return new ProfilePage(driver);
     }
 
+    public Boolean checkContactEquivalent(String testData) {
+        return contactField1.getText().equalsIgnoreCase(testData);
+    }
+
     public void saveData () {
         saveBtn.click();
     }

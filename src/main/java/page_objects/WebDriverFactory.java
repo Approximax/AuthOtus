@@ -22,21 +22,23 @@ public class WebDriverFactory {
 //    FirefoxOptions options = new FirefoxOptions();
 //    WebDriver wd = page_objects.WebDriverFactory.createNewDriver("firefox", options);
 
-    public static WebDriver create(String webDriverName){
-        return create(webDriverName, null);
-    }
+//    public static WebDriver create(String webDriverName){
+//        return create(webDriverName, null);
+//    }
 
-    public static WebDriver create(String webDriverName, WebDriver.Options options){
+    public static WebDriver create(String webDriverName, /*WebDriver.Options options*/ String... options){
         Browser browser = Browser.valueOf(webDriverName.toUpperCase());
         switch (browser){
             case CHROME:
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
-                return new ChromeDriver(chromeOptions.addArguments(options));
+                chromeOptions.addArguments(options);
+                return new ChromeDriver(chromeOptions);
             case FIREFOX:
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                return new FirefoxDriver(firefoxOptions.addArguments(options));
+                firefoxOptions.addArguments(options);
+                return new FirefoxDriver(firefoxOptions);
             case SAFARI:
                 WebDriverManager.safaridriver().setup();
                 SafariOptions safariOptions = new SafariOptions();
@@ -45,9 +47,10 @@ public class WebDriverFactory {
             case IE:
                 WebDriverManager.iedriver().setup();
                 InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
+//                в классе опций IE драйвера из библиотеки силениума нет метода добавления аргумета с опциями
                 return new InternetExplorerDriver();
         }
-        throw new IllegalArgumentException("Некорректно заданн аргумент");
+        throw new IllegalArgumentException("Некорректно задан аргумент");
     }
 
     protected enum Browser{
