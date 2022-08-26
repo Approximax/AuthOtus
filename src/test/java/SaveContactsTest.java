@@ -36,11 +36,14 @@ public class SaveContactsTest {
 
         String text1 = "123";
         String text2 = "456";
+        String urlKey = "base.url";
+        String user_login = "login";
+        String user_password = "password";
 
-        driver.get(propReader.getProp("base.url"));
+        driver.get(propReader.getProp(urlKey));
 
         AuthPage authPage = new AuthPage(driver);
-        authPage.userAuth(propReader.getProp("login"), propReader.getProp("password"));
+        authPage.userAuth(propReader.getProp(user_login), propReader.getProp(user_password));
         logger.info("Авторизация пройдена");
 
         ProfilePage profilePage = new ProfilePage(driver);
@@ -48,10 +51,11 @@ public class SaveContactsTest {
         profilePage.enterContacts2contacts(text1, text2).saveData();
         logger.info("Контакты заполнены");
 
-        driver.get(propReader.getProp("base.url"));
+        driver.manage().deleteAllCookies();
+        driver.get(propReader.getProp(urlKey));
         logger.info("Открыт чистый браузер");
 
-        authPage.userAuth(propReader.getProp("login"), propReader.getProp("password"));
+        authPage.userAuth(propReader.getProp(user_login), propReader.getProp(user_password));
         logger.info("Авторизация пройдена");
 
         profilePage.enterLK();

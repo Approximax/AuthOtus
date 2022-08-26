@@ -10,10 +10,11 @@ public class BasePage {
 
     protected WebDriver driver;
 
+    protected WebDriverWait wait;
+
     protected BasePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        wait = new WebDriverWait(this.driver, Duration.ofSeconds(100));
     }
-
-    protected WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
 }
