@@ -38,7 +38,7 @@ public class ProfilePage extends BasePage {
     public void enterLK () {
         wait.until(ExpectedConditions.elementToBeClickable(profileMenu));
         Actions actions = new Actions(driver);
-        actions.moveToElement(profileMenu).pause(Duration.ofSeconds(5));
+        actions.moveToElement(profileMenu).pause(Duration.ofSeconds(3));
         actions.perform();
         profileLink.click();
     }
